@@ -28,44 +28,42 @@ const LoggingList = lazy(() => import('./components/LoggingList'))
 type AuthStatus = boolean | null
 type Logs = Array<Log> | null
 
+const dataStore = new DataStore();
+
 export default function App() {
-  const [_dataStore: DataStore, updateDataStore] = useState(new DataStore())
-  const [logs: Logs, updateLogs] = useState(null)
-  const [authStatus: AuthStatus, updateAuthStatus] = useState(null)
+  const [logs, setLogs] = useState(null)
+  const [authStatus, setAuthStatus] = useState(null)
 
   useEffect(() => {
-    _dataStore.checkAuth().then((dataStore) => {
-      updateDataStore(() => {
-        dataStore.loggingStore.registerObserver((logs: Array<Log>) =>
-          updateLogs({ logs })
-        )
-        return dataStore
-      })
-      updateAuthStatus(true)
+    dataStore.checkAuth().then((dataStore) => {
+      dataStore.loggingStore.registerObserver((logs: Array<Log>) =>
+        setLogs({ logs })
+      )
+      setAuthStatus(true)
     }).catch((e) => {
-      updateAuthStatus(false)
+      setAuthStatus(false)
     })
     // pass an empty array here as a second parameter
     // to indicate that this effect should be run only once
     // which is simiiar to componentDidMount
-  }, [])
+  }, [dataStore])
 
   const _signOut = (): void => {
-    _dataStore.signOut().then(() => {
-      updateAuthStatus(false)
+    dataStore.signOut().then(() => {
+      setAuthStatus(false)
     })
   }
 
   if (authStatus === null) {
     return <LoadingSpinner />
   } else if (authStatus === false) {
-    return <LoginRoute login={_dataStore.login} />
+    return <LoginRoute login={dataStore.login} />
   }
 
   return (
     <Router>
       <div>
-        <Header {..._dataStore.user} signOut={_signOut} />
+        <Header {...dataStore.user} signOut={_signOut} />
         <Suspense fallback={<LoadingSpinner />}>
           <div {...css({
             position: 'fixed',
@@ -98,7 +96,7 @@ export default function App() {
                 return (
                   <LoggingEditRoute
                     history={history}
-                    saveFn={_dataStore.loggingStore.saveRecord}
+                    saveFn={dataStore.loggingStore.saveRecord}
                   />
                 )
               }}
@@ -107,7 +105,7 @@ export default function App() {
               path={ROUTES.logging.list}
               exact
               render={() => {
-                return <LoggingList logs={logs ? logs.logs : null} deleteFn={_dataStore.loggingStore.deleteRecord} />
+                return <LoggingList logs={logs ? logs.logs : null} deleteFn={dataStore.loggingStore.deleteRecord} />
               }}
             />
             <Route
@@ -116,9 +114,9 @@ export default function App() {
               render={({ history, match }) => {
                 return  <LoggingEditRoute
                           history={history}
-                          saveFn={_dataStore.loggingStore.saveRecord}
-                          deleteFn={_dataStore.loggingStore.deleteRecord}
-                          getRecord={_dataStore.loggingStore.getRecord}
+                          saveFn={dataStore.loggingStore.saveRecord}
+                          deleteFn={dataStore.loggingStore.deleteRecord}
+                          getRecord={dataStore.loggingStore.getRecord}
                           id={match.params.id}
                         />
               }}

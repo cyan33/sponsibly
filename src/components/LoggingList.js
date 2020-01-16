@@ -96,7 +96,8 @@ export default function LoggingList(props: Props) {
           color: '#9e9e9e',
           lineHeight: '1.5rem',
         })}>
-          You don't have any log record at this time, try click the add button and start meal tracking!
+          You don't have any log record at this time, 
+            try click the add button and start tracking your expense!
         </div>
       }
       {logs &&

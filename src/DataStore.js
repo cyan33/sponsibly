@@ -15,19 +15,17 @@ class Store<T: Records> {
   _observers: Array<Observer<T>> = []
   _uid: string
   _entriesRef: any
-  _category: string
+  _entityType: string
   data: Array<T> = []
 
-  constructor(uid: string, category: string, entriesRef: any) {
+  constructor(uid: string, entityType: string, entriesRef: any) {
     this._uid = uid
     this._entriesRef = entriesRef
-    this._category = category
-    this.saveRecord = this.saveRecord.bind(this)
-    this.deleteRecord = this.deleteRecord.bind(this)
-    this.getRecord = this.getRecord.bind(this)
+    // right now entityType only has one type: 'log'
+    this._entityType = entityType
 
     this._entriesRef
-      .where('$category', '==', category)
+      .where('$entityType', '==', entityType)
       .where('user', '==', uid)
       .orderBy('date', 'desc')
       // .limit(40)
@@ -50,7 +48,7 @@ class Store<T: Records> {
     const { id, ...rest } = record
     const data = {
       ...rest,
-      $category: this._category,
+      $entityType: this._entityType,
       user: this._uid
     }
     return id ? this._entriesRef.doc(id).set(data)
@@ -122,12 +120,13 @@ export default class DataStore {
         if (user) {
           const db = firebase.firestore();
 
+          // entries to all data
           this._entriesRef = db.collection('entries')
 
           this.user = user
           const { uid } = user
 
-          this.loggingStore = new Store(uid, 'logs', this._entriesRef)
+          this.loggingStore = new Store(uid, 'log', this._entriesRef)
 
           resolve(this)
         } else {

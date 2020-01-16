@@ -41,7 +41,7 @@ export default function FooterItem({
         }
       })}
     >
-      <Icon color="9e9e9e"/>
+      <Icon />
       <span>{label}</span>
     </NavLink>
   )

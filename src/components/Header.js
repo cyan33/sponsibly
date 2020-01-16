@@ -38,7 +38,7 @@ export default function Header({
         })}
       />
       <span {...css({ fontWeight: '500' })}>
-        Spend Responsibly
+        Sponsibly
       </span>
       <div
         onClick={signOut}

@@ -10,7 +10,6 @@ import { ROUTES } from '../constants'
 import FooterItem from './FooterItem'
 
 export default function Footer() {
-  console.log(SettingsIcon)
   return (
     <footer {...css({
       display: 'flex',
