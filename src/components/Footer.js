@@ -3,7 +3,6 @@ import React from 'react'
 import { css } from 'glamor'
 import DashboardIcon from 'material-ui/svg-icons/action/dashboard'
 import AssignmentIcon from 'material-ui/svg-icons/action/assignment'
-import DiningIcon from 'material-ui/svg-icons/maps/local-dining'
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { ROUTES } from '../constants'

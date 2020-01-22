@@ -28,6 +28,29 @@ type Props = {
   id: string
 }
 
+type Category = 
+  'groceries' |
+  'renting' | 
+  'entertainment' |
+  'self improvement' |
+  'investment' |
+  'utilities' |
+  'dining' |
+  'trasportation' | 
+  'trip';
+
+const CATEGORIES = [
+  'groceries',
+  'renting', 
+  'entertainment',
+  'self improvement',
+  'investment',
+  'utilities',
+  'dining',
+  'trasportation', 
+  'trip',
+];
+
 export default function LoggingForm<Props>(props) {
   const [isSaving, setIsSaving] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
@@ -36,7 +59,7 @@ export default function LoggingForm<Props>(props) {
   // log
   const [date, setDate] = useState(new Date());
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('groceries');
+  const [category, setCategory] = useState<Category>('groceries');
   const [amount, setAmount] = useState(0);
 
   useEffect(() => {
@@ -79,6 +102,10 @@ export default function LoggingForm<Props>(props) {
   const onDescriptionChange = (e: SyntheticEvent<HTMLInputElement>) => {
     setDescription(e.currentTarget.value);
   }
+  
+  const onCategoryChange = (e) => {
+    setCategory(e.target.value);
+  }
 
   async function onSubmit(e: SyntheticEvent<*>): void {
     e.preventDefault()
@@ -116,13 +143,17 @@ export default function LoggingForm<Props>(props) {
         <Select
           labelId="demo-simple-select-label"
           value={category}
-          onChange={() => {}}
+          onChange={onCategoryChange}
           underlineStyle={MATERIAL.textField.underlineStyle}
           underlineFocusStyle={MATERIAL.textField.underlineFocusStyle}
         >
-          <MenuItem value="groceries">Groceries</MenuItem>
-          <MenuItem value="entertainment">Entertainment</MenuItem>
-          <MenuItem value="renting">Renting</MenuItem>
+          {CATEGORIES.map(category => (
+            <MenuItem value={category}>
+              {category.split(' ').map((word) => {
+                return word[0].toUpperCase() + word.slice(1);
+              }).join(' ')}
+            </MenuItem>
+          ))}
         </Select>
       </FormSection>
       <FormSection>

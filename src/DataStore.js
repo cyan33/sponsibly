@@ -1,6 +1,7 @@
 // @flow
 import * as firebase from 'firebase'
 import 'firebase/firestore';
+import config from './config';
 
 import { getExactTimeStamp } from './utils'
 import { Log, User, LoginType } from './types'
@@ -15,20 +16,22 @@ class Store<T: Records> {
   _observers: Array<Observer<T>> = []
   _uid: string
   _entriesRef: any
-  _entityType: string
+  _category: string
   data: Array<T> = []
 
-  constructor(uid: string, entityType: string, entriesRef: any) {
+  constructor(uid: string, category: string, entriesRef: any) {
     this._uid = uid
     this._entriesRef = entriesRef
-    // right now entityType only has one type: 'log'
-    this._entityType = entityType
+    this._category = category
+    this.saveRecord = this.saveRecord.bind(this)
+    this.deleteRecord = this.deleteRecord.bind(this)
+    this.getRecord = this.getRecord.bind(this)
 
     this._entriesRef
-      .where('$entityType', '==', entityType)
+      .where('$category', '==', category)
       .where('user', '==', uid)
       .orderBy('date', 'desc')
-      // .limit(40)
+      .limit(40)
       .onSnapshot(this.onSnapshot);
   }
 
@@ -48,7 +51,7 @@ class Store<T: Records> {
     const { id, ...rest } = record
     const data = {
       ...rest,
-      $entityType: this._entityType,
+      $category: this._category,
       user: this._uid
     }
     return id ? this._entriesRef.doc(id).set(data)
@@ -94,18 +97,8 @@ export default class DataStore {
 
   constructor() {
     if (!firebase.apps.length) {
-      var firebaseConfig = {
-        apiKey: "AIzaSyDRfKuME4yRRhSC6CzpvlgGE5TpsIMRQxk",
-        authDomain: "spendresponsibly.firebaseapp.com",
-        databaseURL: "https://spendresponsibly.firebaseio.com",
-        projectId: "spendresponsibly",
-        storageBucket: "spendresponsibly.appspot.com",
-        messagingSenderId: "798883008011",
-        appId: "1:798883008011:web:325505832e21baea39c10e",
-        measurementId: "G-PMJKLV03V8"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
+      console.log(config);
+      firebase.initializeApp(config);
     }
   }
 
@@ -120,13 +113,12 @@ export default class DataStore {
         if (user) {
           const db = firebase.firestore();
 
-          // entries to all data
           this._entriesRef = db.collection('entries')
 
           this.user = user
           const { uid } = user
 
-          this.loggingStore = new Store(uid, 'log', this._entriesRef)
+          this.loggingStore = new Store(uid, 'logs', this._entriesRef)
 
           resolve(this)
         } else {
@@ -140,9 +132,6 @@ export default class DataStore {
     let provider
     
     switch(type) {
-      // case 'github':
-      //   provider = new firebase.auth.GithubAuthProvider()
-      //   break
       case 'google':
         provider = new firebase.auth.GoogleAuthProvider()
         break

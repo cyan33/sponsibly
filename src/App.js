@@ -25,7 +25,6 @@ const DashboardRoute = lazy(() => import('./routes/DashboardRoute'))
 // import LoggingList from './components/LoggingList'
 const LoggingList = lazy(() => import('./components/LoggingList'))
 
-type AuthStatus = boolean | null
 type Logs = Array<Log> | null
 
 const dataStore = new DataStore();
@@ -38,7 +37,7 @@ export default function App() {
     dataStore.checkAuth().then((dataStore) => {
       dataStore.loggingStore.registerObserver((logs: Array<Log>) =>
         setLogs({ logs })
-      )
+      );
       setAuthStatus(true)
     }).catch((e) => {
       setAuthStatus(false)

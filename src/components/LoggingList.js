@@ -103,13 +103,20 @@ export default function LoggingList(props: Props) {
       {logs &&
         <ul>
           {
-            logs.map((log, i) => (
-              <LoggingEntry 
-                {...log}
-                key={i}
-                onClickDelete={onDialogOpen}
-              />
-            ))
+            logs.map((log, i) => {
+              // <LoggingEntry 
+              //   {...log}
+              //   key={i}
+              //   onClickDelete={onDialogOpen}
+              // />
+              const {category, description, amount} = log;
+              return (
+                <div>
+                  {/* TODO: change this to emoji */}
+                  [{category[0].toUpperCase() + category.slice(1)}] {log.description}: {log.amount}
+                </div>
+              );
+            })
           }
         </ul>
       }
