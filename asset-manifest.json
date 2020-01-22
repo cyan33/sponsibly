@@ -1,0 +1,38 @@
+{
+  "files": {
+    "static/js/0.30134371.chunk.js": "/sponsibly/static/js/0.30134371.chunk.js",
+    "static/js/0.30134371.chunk.js.map": "/sponsibly/static/js/0.30134371.chunk.js.map",
+    "main.js": "/sponsibly/static/js/main.20fa3f5a.chunk.js",
+    "main.js.map": "/sponsibly/static/js/main.20fa3f5a.chunk.js.map",
+    "runtime-main.js": "/sponsibly/static/js/runtime-main.082365a2.js",
+    "runtime-main.js.map": "/sponsibly/static/js/runtime-main.082365a2.js.map",
+    "static/js/3.fd626bf0.chunk.js": "/sponsibly/static/js/3.fd626bf0.chunk.js",
+    "static/js/3.fd626bf0.chunk.js.map": "/sponsibly/static/js/3.fd626bf0.chunk.js.map",
+    "static/js/4.5c1197d2.chunk.js": "/sponsibly/static/js/4.5c1197d2.chunk.js",
+    "static/js/4.5c1197d2.chunk.js.map": "/sponsibly/static/js/4.5c1197d2.chunk.js.map",
+    "static/js/5.a8e19579.chunk.js": "/sponsibly/static/js/5.a8e19579.chunk.js",
+    "static/js/5.a8e19579.chunk.js.map": "/sponsibly/static/js/5.a8e19579.chunk.js.map",
+    "static/js/6.ff93cdc4.chunk.js": "/sponsibly/static/js/6.ff93cdc4.chunk.js",
+    "static/js/6.ff93cdc4.chunk.js.map": "/sponsibly/static/js/6.ff93cdc4.chunk.js.map",
+    "static/js/7.fa2ac127.chunk.js": "/sponsibly/static/js/7.fa2ac127.chunk.js",
+    "static/js/7.fa2ac127.chunk.js.map": "/sponsibly/static/js/7.fa2ac127.chunk.js.map",
+    "static/js/8.026551c0.chunk.js": "/sponsibly/static/js/8.026551c0.chunk.js",
+    "static/js/8.026551c0.chunk.js.map": "/sponsibly/static/js/8.026551c0.chunk.js.map",
+    "static/js/9.4e77209b.chunk.js": "/sponsibly/static/js/9.4e77209b.chunk.js",
+    "static/js/9.4e77209b.chunk.js.map": "/sponsibly/static/js/9.4e77209b.chunk.js.map",
+    "static/js/10.88a0e74d.chunk.js": "/sponsibly/static/js/10.88a0e74d.chunk.js",
+    "static/js/10.88a0e74d.chunk.js.map": "/sponsibly/static/js/10.88a0e74d.chunk.js.map",
+    "index.html": "/sponsibly/index.html",
+    "precache-manifest.a84005076217b4f2e89da03c89f8380b.js": "/sponsibly/precache-manifest.a84005076217b4f2e89da03c89f8380b.js",
+    "service-worker.js": "/sponsibly/service-worker.js",
+    "static/js/0.30134371.chunk.js.LICENSE": "/sponsibly/static/js/0.30134371.chunk.js.LICENSE",
+    "static/js/3.fd626bf0.chunk.js.LICENSE": "/sponsibly/static/js/3.fd626bf0.chunk.js.LICENSE",
+    "static/media/Github.svg": "/sponsibly/static/media/Github.ea8bb7f4.svg",
+    "static/media/Google.svg": "/sponsibly/static/media/Google.686f8efa.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.082365a2.js",
+    "static/js/3.fd626bf0.chunk.js",
+    "static/js/main.20fa3f5a.chunk.js"
+  ]
+}
